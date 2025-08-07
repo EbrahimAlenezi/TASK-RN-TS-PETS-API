@@ -1,8 +1,9 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import pets from "@/data/pets";
-
+import axios from "axios";
+//import pets from "@/data/pets";
+const [lookFor, setlookFor] = useState("");
 const PetDetails = () => {
   const { petId } = useLocalSearchParams();
   const pet = pets.find((singlePet) => singlePet.id === +petId);

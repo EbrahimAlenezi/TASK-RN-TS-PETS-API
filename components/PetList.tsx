@@ -6,22 +6,31 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import pets from "@/data/pets";
+//import pets from "@/data/pets";
 import PetItem from "./PetItem";
 import axios from "axios";
-
+export type NewData = {
+  id: number;
+  name: string;
+  description: string;
+  type: string;
+  image: string;
+  image2: string;
+};
 const PetList = () => {
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
-  const [displayPets, setDisplayPets] = useState([]);
-
+  const [displayPets, setDisplayPets] = useState<NewData[]>([]);
   const GetInfo = async () => {
-    const res = await axios.get(
-      "https://pets-react-query-backend.eapi.joincoded.com/pets"
-    );
-    console.log(res.data);
-    setDisplayPets(res.data);
+    try {
+      const res = await axios.get(
+        "https://pets-react-query-backend.eapi.joincoded.com/pets"
+      );
+      console.log(res.data);
+      setDisplayPets(res.data);
+    } catch (error) {}
   };
+
   useEffect(() => {
     GetInfo();
   }, []);
